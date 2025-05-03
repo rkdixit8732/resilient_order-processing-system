@@ -1,16 +1,14 @@
+# Build stage
 FROM golang:1.24 AS builder
 WORKDIR /app
 
-COPY ../go.mod ../go.sum ./
-RUN go mod download
+COPY ../proto ../proto
+COPY . .
 
-COPY ../ ./
-WORKDIR /app/payment-service
-RUN go build -o payment-service .
+RUN go mod tidy
+RUN go build -o order-service .
 
+# Run stage
 FROM gcr.io/distroless/base-debian11
-
-WORKDIR /app
-COPY --from=builder /app/payment-service/payment-service .
-EXPOSE 50051
-ENTRYPOINT ["/app/payment-service"]
+COPY --from=builder /app/order-service /order-service
+ENTRYPOINT ["/order-service"]

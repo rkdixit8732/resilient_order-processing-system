@@ -1,11 +1,11 @@
 syntax = "proto3";
 
 package inventory;
-option go_package = "./inventorypb";
+
+option go_package = "proto/inventory";
 
 service InventoryService {
   rpc ReserveItem (InventoryRequest) returns (InventoryResponse);
-  rpc ReleaseItem (InventoryRequest) returns (InventoryResponse);
 }
 
 message InventoryRequest {
@@ -14,6 +14,6 @@ message InventoryRequest {
 }
 
 message InventoryResponse {
-  bool success = 1;
+  string status = 1;
   string message = 2;
 }

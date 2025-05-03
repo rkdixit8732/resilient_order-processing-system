@@ -1,4 +1,4 @@
-module github.com/rkdixit8732/resilient_order-processing-system
+module resilient_order-processing-system
 
 go 1.23.1
 
