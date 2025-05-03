@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package payment;
+option go_package = "./paymentpb";
+
+service PaymentService {
+  rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+  rpc RefundPayment (RefundRequest) returns (PaymentResponse);
+}
+
+message PaymentRequest {
+  string order_id = 1;
+  float amount = 2;
+  string user_id = 3;
+}
+
+message RefundRequest {
+  string order_id = 1;
+}
+
+message PaymentResponse {
+  bool success = 1;
+  string message = 2;
+}
